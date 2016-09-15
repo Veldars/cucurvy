@@ -70,8 +70,7 @@ BonusStack.prototype.apply = function(property, value)
             this.target.setColor(value);
             break;
         case 'dotSize':
-	console.log(value);
-	    this.target.setDotSize(value);
+	       this.target.setDotSize(value);
             break;
         default:
             BaseBonusStack.prototype.apply.call(this, property, value);
@@ -88,7 +87,6 @@ BonusStack.prototype.apply = function(property, value)
  */
 BonusStack.prototype.getDefaultProperty = function(property)
 {
-    console.log('getDefault');
     switch (property) {
         case 'printing':
             return 1;

@@ -25,7 +25,7 @@ function BaseAvatar(player)
     this.roundScore      = 0;
     this.ready           = false;
     this.present         = true;
-    this.team            = 0;
+    this.team            = player.team;
 
     // useless too? this.updateVelocities();
 }
@@ -403,6 +403,15 @@ BaseAvatar.prototype.setScore = function(score)
 };
 
 /**
+ * Set Team
+ *
+ * @param {Number} team
+ */
+BaseAvatar.prototype.setTeam = function(team)
+{
+    this.team = team;
+};
+/**
  * Set color
  *
  * @param {Number} color
@@ -439,7 +448,7 @@ BaseAvatar.prototype.clear = function()
     this.eraser              = BaseAvatar.prototype.eraser;
     this.directionInLoop     = BaseAvatar.prototype.directionInLoop;
     this.angularVelocityBase = BaseAvatar.prototype.angularVelocityBase;
-    this.team                = 0;
+    this.team                = this.player.team;
     
 
     if (this.body) {
@@ -471,6 +480,6 @@ BaseAvatar.prototype.serialize = function()
         name: this.name,
         color: this.color,
         score: this.score,
-        team: this.team;
+        team: this.team
     };
 };

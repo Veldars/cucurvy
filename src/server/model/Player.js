@@ -5,9 +5,9 @@
  * @param {String} name
  * @param {String} color
  */
-function Player(client, name, color)
+function Player(client, name, color, team)
 {
-    BasePlayer.call(this, client, name, color);
+    BasePlayer.call(this, client, name, color, team);
 }
 
 Player.prototype = Object.create(BasePlayer.prototype);

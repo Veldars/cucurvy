@@ -5,12 +5,13 @@
  * @param {String} name
  * @param {String} color
  */
-function BasePlayer(client, name, color, ready)
+function BasePlayer(client, name, color, team, ready)
 {
     EventEmitter.call(this);
 
     this.client = client;
     this.name   = name;
+    this.team   = team;
     this.color  = typeof(color) !== 'undefined' && this.validateColor(color) ? color : this.getRandomColor();
     this.ready  = typeof(ready) !== 'undefined' && ready;
     this.id     = null;
@@ -42,6 +43,17 @@ BasePlayer.prototype.colorMaxLength = 20;
 BasePlayer.prototype.setName = function(name)
 {
     this.name = name;
+};
+
+/**
+ * Set team
+ *
+ * @param {Number} team
+ */
+BasePlayer.prototype.setTeam = function(team)
+{
+    this.team = team;
+    return true;
 };
 
 /**
@@ -116,6 +128,7 @@ BasePlayer.prototype.serialize = function()
         id: this.id,
         name: this.name,
         color: this.color,
+        team: this.team,
         ready: this.ready
     };
 };

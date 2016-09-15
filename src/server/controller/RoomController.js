@@ -38,12 +38,14 @@ function RoomController(room)
         onKickVote: function (data) { controller.onKickVote(this, data[0], data[1]); },
         onName: function (data) { controller.onName(this, data[0], data[1]); },
         onColor: function (data) { controller.onColor(this, data[0], data[1]); },
+        onTeam: function (data) { controller.onTeam(this, data[0], data[1]); },
         onLeave: function () { controller.onLeave(this); },
         onActivity: function () { controller.onActivity(this); },
 
         onConfigOpen: function (data) { controller.onConfigOpen(this, data[0], data[1]); },
         
         onConfigIsClockGame: function (data) { controller.onConfigIsClockGame(this, data[0], data[1]); },
+        onConfigIsTeamGame: function (data) { controller.onConfigIsTeamGame(this, data[0], data[1]); },
         
         onConfigMaxScore: function (data) { controller.onConfigMaxScore(this, data[0], data[1]); },
         onConfigVariable: function (data) { controller.onConfigVariable(this, data[0], data[1]); },
@@ -159,6 +161,7 @@ RoomController.prototype.attachEvents = function(client)
     client.on('player:kick', this.callbacks.onKickVote);
     client.on('room:ready', this.callbacks.onReady);
     client.on('room:color', this.callbacks.onColor);
+    client.on('room:team', this.callbacks.onTeam);
     client.on('room:name', this.callbacks.onName);
     client.on('players:clear', this.onPlayersClear);
 };
@@ -179,6 +182,7 @@ RoomController.prototype.detachEvents = function(client)
     client.removeListener('player:kick', this.callbacks.onKickVote);
     client.removeListener('room:ready', this.callbacks.onReady);
     client.removeListener('room:color', this.callbacks.onColor);
+    client.removeListener('room:team', this.callbacks.onTeam);
     client.removeListener('room:name', this.callbacks.onName);
     client.removeListener('players:clear', this.onPlayersClear);
 };
@@ -228,7 +232,7 @@ RoomController.prototype.setRoomMaster = function(client)
         this.roomMaster = client;
         this.roomMaster.on('close', this.removeRoomMaster);
         this.roomMaster.on('room:leave', this.removeRoomMaster);
-        this.roomMaster.on('room:config:open', this.callbacks.onConfigOpen);
+        this.roomMaster.on('room:config: ', this.callbacks.onConfigOpen);
         this.roomMaster.on('room:config:max-score', this.callbacks.onConfigMaxScore);
         this.roomMaster.on('room:config:variable', this.callbacks.onConfigVariable);
         this.roomMaster.on('room:config:bonus', this.callbacks.onConfigBonus);
@@ -236,6 +240,7 @@ RoomController.prototype.setRoomMaster = function(client)
         this.socketGroup.addEvent('room:master', {client: client.id});
         
         this.roomMaster.on('room:config:isClockGame', this.callbacks.onConfigIsClockGame);
+        this.roomMaster.on('room:config:isTeamGame', this.callbacks.onConfigIsTeamGame);
     }
 };
 
@@ -252,7 +257,9 @@ RoomController.prototype.removeRoomMaster = function()
         this.roomMaster.removeListener('room:config:variable', this.callbacks.onConfigVariable);
         this.roomMaster.removeListener('room:config:bonus', this.callbacks.onConfigBonus);
         this.roomMaster.removeListener('room:launch', this.callbacks.onLaunch);
+        
         this.roomMaster.removeListener('room:config:isClockGame', this.callbacks.onConfigIsClockGame);
+        this.roomMaster.removeListener('room:config:isTeamGame', this.callbacks.onConfigIsTeamGame);
         
         this.roomMaster = null;
         this.nominateRoomMaster();
@@ -280,7 +287,9 @@ RoomController.prototype.isRoomMaster = function(client)
 RoomController.prototype.onClientAdd = function(client)
 {
     client.clearPlayers();
-
+    //if (this.room.config.isTeamGame) {
+    //    client.team = Math.floor(Math.random() * 2) + 1;
+    //}
     if (this.room.game) {
         this.room.game.controller.attach(client);
         client.addEvent('room:game:start');
@@ -423,7 +432,12 @@ RoomController.prototype.onPlayerAdd = function(client, data, callback)
         return callback({success: false, error: 'Unknown client'});
     }
 
-    var player = new Player(client, name, color);
+    var team = 0;
+    if (this.room.config.isTeamGame) {
+        team = Math.floor(Math.random() * 2) + 1;
+    }
+    
+    var player = new Player(client, name, color, team);
 
     if (this.room.addPlayer(player)) {
         client.players.add(player);
@@ -470,6 +484,30 @@ RoomController.prototype.onTalk = function(client, content, callback)
 
     if (success) {
         this.socketGroup.addEvent('room:talk', message.serialize());
+    }
+};
+
+/**
+ * On player change team
+ *
+ * @param {SocketClient} client
+ * @param {Object} data
+ * @param {Function} callback
+ */
+RoomController.prototype.onTeam = function(client, data, callback)
+{
+    var player = client.players.getById(data.player),
+        team = data.team;
+
+    if (!player) {
+        return callback({success: false});
+    }
+
+    if (player.setTeam(team)) {
+        callback({success: true, color: player.team});
+        this.socketGroup.addEvent('player:team', { player: player.id, team: player.team });
+    } else {
+        callback({success: false, team: player.team});
     }
 };
 
@@ -617,7 +655,7 @@ RoomController.prototype.onConfigIsClockGame = function(client, data, callback)
 
     callback({
         success: success,
-        open: this.room.config.isClockGame
+        isClockGame: this.room.config.isClockGame
     });
 
     if (success) {
@@ -626,6 +664,37 @@ RoomController.prototype.onConfigIsClockGame = function(client, data, callback)
         });
     }
 };
+
+
+/**
+ * On config is Team Game
+ *
+ * @param {SocketClient} client
+ * @param {Object} data
+ * @param {Function} callback
+ */
+RoomController.prototype.onConfigIsTeamGame = function(client, data, callback)
+{
+    var success = this.isRoomMaster(client) && this.room.config.setIsTeamGame(data.isTeamGame);
+
+    callback({
+        success: success,
+        isTeamGame: this.room.config.isTeamGame
+    });
+
+    if (success) {
+        if (this.room.config.isTeamGame) {
+            for (var i = 0; i < this.room.players.items.length; i++) {
+                this.room.players.items[i].team = Math.floor(Math.random() * 2) + 1;
+                this.socketGroup.addEvent('player:team', { player: this.room.players.items[i].id, team: this.room.players.items[i].team });
+            }
+        }
+        this.socketGroup.addEvent('room:config:isTeamGame', {
+            isTeamGame: this.room.config.isTeamGame
+        });
+    }
+};
+
 /**
  * On config max score
  *

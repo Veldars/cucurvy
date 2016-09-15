@@ -60,7 +60,7 @@ RoomConfig.prototype.setOpen = function(open)
 /**
  * Set isClockGame
  *
- * @param {Boolean} open
+ * @param {Boolean} isClockGame
  */
 RoomConfig.prototype.setIsClockGame = function(isClockGame)
 {
@@ -68,6 +68,24 @@ RoomConfig.prototype.setIsClockGame = function(isClockGame)
         this.isClockGame     = isClockGame;
 
         this.emit('room:config:isClockGame', {room: this.room, isClockGame: this.isClockGame});
+
+        return true;
+    }
+
+    return false;
+};
+
+/**
+ * Set isTeamGame
+ *
+ * @param {Boolean} isTeamGame
+ */
+RoomConfig.prototype.setIsTeamGame = function(isTeamGame)
+{
+    if (this.isTeamGame !== isTeamGame) {
+        this.isTeamGame     = isTeamGame;
+
+        this.emit('room:config:isTeamGame', {room: this.room, isTeamGame: this.isTeamGame});
 
         return true;
     }

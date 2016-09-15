@@ -33,6 +33,7 @@ function RoomConfigController($scope, repository)
     this.$scope.setIsTeamGame      = this.setIsTeamGame;
     
     this.repository.on('config:isClockGame', this.digestScope);
+    this.repository.on('config:isTeamGame', this.digestScope);
 
     this.repository.on('config:open', this.digestScope);
     this.repository.on('config:max-score', this.digestScope);

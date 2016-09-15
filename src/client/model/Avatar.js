@@ -110,6 +110,16 @@ Avatar.prototype.setRadius = function(radius)
 };
 
 /**
+ * Set Team
+ *
+ * @param {String} team
+ */
+Avatar.prototype.setTeam = function(team)
+{
+    BaseAvatar.prototype.setTeam.call(this, team);
+    this.drawHead();
+};
+/**
  * Set color
  *
  * @param {String} color

@@ -29,7 +29,6 @@ Avatar.prototype.setDotSize = function(dotSize)
 	        BaseAvatar.prototype.setDotSize.call(this, dotSize);
 
 		this.printManager.printDistance = this.dotSize;
-		console.log('dotSize : ' + dotSize);
 	        this.emit('property', {avatar: this, property: 'dotSize', value: this.dotSize});
 	}
 };

@@ -18,6 +18,7 @@ function RoomsRepository(client)
     this.onRoomConfigOpen = this.onRoomConfigOpen.bind(this);
     
     this.onRoomConfigIsClockGame = this.onRoomConfigIsClockGame.bind(this);
+    this.onRoomConfigIsTeamGame = this.onRoomConfigIsTeamGame.bind(this);
 }
 
 RoomsRepository.prototype = Object.create(EventEmitter.prototype);
@@ -36,6 +37,7 @@ RoomsRepository.prototype.attachEvents = function()
     
     
     this.client.on('room:config:isClockGame', this.onRoomConfigIsClockGame);
+    this.client.on('room:config:isTeamGame', this.onRoomConfigIsTeamGame);
 };
 
 /**
@@ -50,6 +52,7 @@ RoomsRepository.prototype.detachEvents = function()
     this.client.off('room:config:open', this.onRoomConfigOpen);
     
     this.client.off('room:config:isClockGame', this.onRoomConfigIsClockGame);
+    this.client.off('room:config:isTeamGame', this.onRoomConfigIsTeamGame);
 };
 
 /**
@@ -167,6 +170,22 @@ RoomsRepository.prototype.onRoomConfigIsClockGame = function(e)
     }
 };
 
+/**
+ * On room config team Game change
+ *
+ * @param {Event} e
+ *
+ * @return {Boolean}
+ */
+RoomsRepository.prototype.onRoomConfigIsTeamGame = function(e)
+{
+    var room = this.get(e.detail.name);
+
+    if(room) {
+        room.isTeamGame = e.detail.isTeamGame;
+        this.emit('room:config:isTeamGame', room);
+    }
+};
 /**
  * On room players change
  *

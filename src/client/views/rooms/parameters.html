@@ -25,6 +25,16 @@
             <label class="toggler" ng-class="{ 'active': config.isClockGame == false }" id="is-clock" ng-click="setIsClockGame(false)">Normal</label>
             <!-- IS CLOCK GAME -->
             
+            <br/>
+            <!-- IS TEAM GAME -->
+            <label class="toggler" id="is-notteam" ng-click="setIsTeamGame(true)" ng-class="{ 'active': config.isTeamGame == true }">Team</label>
+            <div class="toggle" ng-class="{ 'active': config.isTeamGame == true }">
+                <input type="checkbox" id="team" ng-model="config.isTeamGame" ng-change="setIsTeamGame(config.isTeamGame)" ng-disabled="!master" class="check">
+                <b class="b switch"></b>
+            </div>
+            <label class="toggler" ng-class="{ 'active': config.isTeamGame == false }" id="is-team" ng-click="setIsTeamGame(false)">Solo</label>
+            <!-- IS TEAM GAME -->
+            
         </div>
     </div>
     <div class="col-lg-8 bonus-list">

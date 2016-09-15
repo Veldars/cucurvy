@@ -7,6 +7,7 @@ function Profile()
 
     this.name     = null;
     this.color    = null;
+    this.team     = null;
     this.sound    = true;
     this.radio    = false;
     this.loading  = false;
@@ -49,6 +50,7 @@ Profile.prototype.serialize = function()
     return {
         name: this.name,
         color: this.color,
+        team: this.team,
         sound: this.sound,
         radio: this.radio,
         controls: this.getMapping()
@@ -70,6 +72,10 @@ Profile.prototype.unserialize = function(data)
         this.setColor(data.color);
     }
 
+    if (typeof(data.team) !== 'undefined') {
+        this.setTeam(data.team);
+    }
+    
     if (typeof(data.sound) !== 'undefined') {
         this.setSound(data.sound);
     }
@@ -161,6 +167,12 @@ Profile.prototype.setColor = function(color)
         this.color = color;
         this.persist();
     }
+};
+
+Profile.prototype.setTeam = function(team)
+{
+    this.team = team;
+    this.persist();
 };
 
 /**

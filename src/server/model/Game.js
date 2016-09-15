@@ -119,7 +119,29 @@ Game.prototype.update = function(step)
  */
 Game.prototype.kill = function(avatar, killer, score) {
     avatar.die(killer);
-    avatar.addScore(score);
+    
+    if (!this.room.config.isTeamGame) {
+        avatar.addScore(score);
+    } else {
+        var allTeamDie = true;
+        for (var i = this.avatars.items.length - 1; i >= 0; i--) {
+            if (this.avatars.items[i].id !== avatar.id) {
+                if (this.avatars.items[i].alive && this.avatars.items[i].team === avatar.team) {
+                    allTeamDie = false;
+                }
+            }
+        }
+        if (allTeamDie) {
+            avatar.addScore(score);
+            for (var j = this.avatars.items.length - 1; j >= 0; j--) {
+                if (this.avatars.items[j].id !== avatar.id) {
+                    if (this.avatars.items[j].team === avatar.team) {
+                        this.avatars.items[j].addScore(score);
+                    }
+                }
+            }
+        }
+    }
     this.deaths.add(avatar);
     this.deathInFrame = true;
 };
@@ -162,18 +184,34 @@ Game.prototype.isWon = function()
 
     var maxScore = this.maxScore,
         players = this.avatars.filter(function () { return this.present && this.score >= maxScore; });
-
     if (players.count() === 0) {
         return null;
     }
+    
+    for (var i = 0; i < players.items.length; i++) {
+        if (players.items[i].score > maxScore) {
+            maxScore = players.items[i].score;
+        }
+    }
+    players = players.filter(function () { return this.score >= maxScore; });
 
-    if (players.count() === 1) {
+    if (players.count() === 1 || (this.room.config.isTeamGame && this.allSameTeam(players))) {
         return players.getFirst();
     }
 
     this.sortAvatars(players);
 
     return players.items[0].score === players.items[1].score ? null : players.getFirst();
+};
+
+Game.prototype.allSameTeam = function(players) {
+    var team = players.items[0].team;
+    for (var i = 1; i < players.items.length; i++) {
+        if (players.items[i].team !== team) {
+            return false;
+        }
+    }
+    return true;
 };
 
 /**
@@ -186,12 +224,14 @@ Game.prototype.checkRoundEnd = function()
     }
 
     var alive = false;
+    var teamAvatar = null;
 
     for (var i = this.avatars.items.length - 1; i >= 0; i--) {
         if (this.avatars.items[i].alive) {
             if (!alive) {
+                teamAvatar = this.avatars.items[i];
                 alive = true;
-            } else {
+            } else if (!this.room.config.isTeamGame || (teamAvatar !== null && this.avatars.items[i].team !== teamAvatar.team)){
                 return;
             }
         }
@@ -216,10 +256,18 @@ Game.prototype.resolveScores = function()
     if (winner) {
         winner.addScore(Math.max(this.avatars.count() - 1, 1));
         this.roundWinner = winner;
+        if (this.room.config.isTeamGame) {
+            for (var i = this.avatars.items.length - 1; i >= 0; i--) {
+                if (this.avatars.items[i].id !== winner.id && this.avatars.items[i].team === winner.team) {
+                    this.avatars.items[i].addScore(Math.max(this.avatars.count() - 1, 1));
+                    this.roundWinner += ' - ' + winner;
+                }
+            }
+        }
     }
 
-    for (var i = this.avatars.items.length - 1; i >= 0; i--) {
-        this.avatars.items[i].resolveScore();
+    for (var j = this.avatars.items.length - 1; j >= 0; j--) {
+        this.avatars.items[j].resolveScore();
     }
 };
 

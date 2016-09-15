@@ -43,6 +43,7 @@ function RoomController($scope, $routeParams, $location, client, repository, pro
     this.joinRoom         = this.joinRoom.bind(this);
     this.leaveRoom        = this.leaveRoom.bind(this);
     this.setColor         = this.setColor.bind(this);
+    this.setTeam          = this.setTeam.bind(this);
     this.setReady         = this.setReady.bind(this);
     this.setName          = this.setName.bind(this);
     this.setTouch         = this.setTouch.bind(this);
@@ -58,6 +59,7 @@ function RoomController($scope, $routeParams, $location, client, repository, pro
     
     
     this.onConfigIsClockGame     = this.onConfigIsClockGame.bind(this);
+    this.onConfigIsTeamGame     = this.onConfigIsTeamGame.bind(this);
 
     this.$scope.$on('$destroy', this.leaveRoom);
 
@@ -67,6 +69,7 @@ function RoomController($scope, $routeParams, $location, client, repository, pro
     this.$scope.removePlayer      = this.removePlayer;
     this.$scope.kickPlayer        = this.kickPlayer;
     this.$scope.setColor          = this.setColor;
+    this.$scope.setTeam           = this.setTeam;
     this.$scope.setReady          = this.setReady;
     this.$scope.setName           = this.setName;
     this.$scope.setTouch          = this.setTouch;
@@ -158,6 +161,7 @@ RoomController.prototype.attachEvents = function()
     this.repository.on('player:ready', this.requestDigestScope);
     this.repository.on('player:color', this.requestDigestScope);
     this.repository.on('player:name', this.requestDigestScope);
+    this.repository.on('player:team', this.requestDigestScope);
     this.repository.on('client:activity', this.requestDigestScope);
     this.repository.on('room:master', this.onRoomMaster);
     this.repository.on('room:game:start', this.start);
@@ -166,6 +170,7 @@ RoomController.prototype.attachEvents = function()
     this.repository.on('room:launch:cancel', this.onLaunchCancel);
     
     this.repository.on('room:config:isClockGame', this.onConfigIsClockGame);
+    this.repository.on('room:config:isTeamGame', this.onConfigIsTeamGame);
 
     for (var i = this.room.players.items.length - 1; i >= 0; i--) {
         this.room.players.items[i].on('control:change', this.onControlChange);
@@ -183,6 +188,7 @@ RoomController.prototype.detachEvents = function()
     this.repository.off('player:ready', this.requestDigestScope);
     this.repository.off('player:color', this.requestDigestScope);
     this.repository.off('player:name', this.requestDigestScope);
+    this.repository.off('player:team', this.requestDigestScope);
     this.repository.off('client:activity', this.requestDigestScope);
     this.repository.off('room:master', this.onRoomMaster);
     this.repository.off('room:game:start', this.start);
@@ -191,6 +197,7 @@ RoomController.prototype.detachEvents = function()
     this.repository.off('room:launch:cancel', this.onLaunchCancel);
     
     this.repository.off('room:config:isClockGame', this.onConfigIsClockGame);
+    this.repository.off('room:config:isTeamGame', this.onConfigIsTeamGame);
 
     if (this.room) {
         for (var i = this.room.players.items.length - 1; i >= 0; i--) {
@@ -286,13 +293,20 @@ RoomController.prototype.onConfigOpen = function(e)
 };
 
 /**
- * Go room config open
+ * Go room config clock
  */
 RoomController.prototype.onConfigIsClockGame = function(e)
 {
     console.log('IsClockGame : ' + this.room.config.isClockGame);
 };
 
+/**
+ * Go room config is team game
+ */
+RoomController.prototype.onConfigIsTeamGame = function(e)
+{
+    console.log('IsTeamGame : ' + this.room.config.isTeamGame);
+};
 /**
  * On join
  *
@@ -322,6 +336,29 @@ RoomController.prototype.onJoin = function(e)
     }
 
     this.requestDigestScope();
+};
+
+/**
+ * Set player team
+ *
+ * @return {Array}
+ */
+RoomController.prototype.setTeam = function(player)
+{
+    if (!player.local) { return; }
+
+    var controller = this;
+
+    this.repository.setTeam(
+        player,
+        player.team,
+        function (result) {
+            if (player.profile) {
+                controller.profile.setTeam(player.team);
+            }
+            controller.digestScope();
+        }
+    );
 };
 
 /**

@@ -158,7 +158,8 @@ RoomsController.prototype.onRoomOpen = function(data)
     room.on('player:leave', this.onRoomPlayer);
     room.config.on('room:config:open', this.onRoomConfigOpen);
     
-    room.config.on('room:config:isclockGame', this.onRoomConfigIsClockGame);
+    //room.config.on('room:config:isclockGame', this.onRoomConfigIsClockGame);
+    //room.config.on('room:config:isteamGame', this.onRoomConfigIsTeamGame);
 
     this.socketGroup.addEvent('room:open', room.serialize(false));
 };
@@ -178,7 +179,8 @@ RoomsController.prototype.onRoomClose = function(data)
     room.removeListener('player:leave', this.onRoomPlayer);
     room.config.on('room:config:open', this.onRoomConfigOpen);
     
-    room.config.on('room:config:isclockGame', this.onRoomConfigIsClockGame);
+    //room.config.on('room:config:isclockGame', this.onRoomConfigIsClockGame);
+    //room.config.on('room:config:isteamGame', this.onRoomConfigIsTeamGame);
 
     this.socketGroup.addEvent('room:close', {name: room.name});
 };
@@ -195,7 +197,7 @@ RoomsController.prototype.onRoomConfigOpen = function(data)
 
 
 /**
- * On room config open
+ * On room config clock
  *
  * @param {Object} data
  */
@@ -204,6 +206,15 @@ RoomsController.prototype.onRoomConfigIsClockGame = function(data)
     this.socketGroup.addEvent('room:config:isClockGame', {name: data.room.name, isClockGame: data.isClockGame});
 };
 
+/**
+ * On room config team
+ *
+ * @param {Object} data
+ */
+RoomsController.prototype.onRoomConfigIsTeamGame = function(data)
+{
+    this.socketGroup.addEvent('room:config:isTeamGame', {name: data.room.name, isTeamGame: data.isTeamGame});
+};
 /**
  * On player leave/join a room
  *

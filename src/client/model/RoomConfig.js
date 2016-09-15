@@ -77,13 +77,22 @@ RoomConfig.prototype.setOpen = function(open)
 /**
  * Set clock game
  *
- * @param {String} open
+ * @param {String} isClockGame
  */
 RoomConfig.prototype.setIsClockGame = function(isClockGame)
 {
     this.isClockGame = isClockGame;
 };
 
+/**
+ * Set team game
+ *
+ * @param {String} isTeamGame
+ */
+RoomConfig.prototype.setIsTeamGame = function(isTeamGame)
+{
+    this.isTeamGame = isTeamGame;
+};
 /**
  * Set password
  *

@@ -22,6 +22,7 @@ function RoomRepository(client)
     this.onGameStart      = this.onGameStart.bind(this);
     this.onPlayerReady    = this.onPlayerReady.bind(this);
     this.onPlayerColor    = this.onPlayerColor.bind(this);
+    this.onPlayerTeam     = this.onPlayerTeam.bind(this);
     this.onPlayerName     = this.onPlayerName.bind(this);
     this.onConfigOpen     = this.onConfigOpen.bind(this);
     this.onConfigMaxScore = this.onConfigMaxScore.bind(this);
@@ -53,6 +54,7 @@ RoomRepository.prototype.attachEvents = function()
     this.client.on('room:game:start', this.onGameStart);
     this.client.on('player:ready', this.onPlayerReady);
     this.client.on('player:color', this.onPlayerColor);
+    this.client.on('player:team', this.onPlayerTeam);
     this.client.on('player:name', this.onPlayerName);
     this.client.on('room:config:open', this.onConfigOpen);
     this.client.on('room:config:max-score', this.onConfigMaxScore);
@@ -82,6 +84,7 @@ RoomRepository.prototype.detachEvents = function()
     this.client.off('room:game:start', this.onGameStart);
     this.client.off('player:ready', this.onPlayerReady);
     this.client.off('player:color', this.onPlayerColor);
+    this.client.off('player:team', this.onPlayerTeam);
     this.client.off('player:name', this.onPlayerName);
     this.client.off('room:config:open', this.onConfigOpen);
     this.client.off('room:config:max-score', this.onConfigMaxScore);
@@ -312,6 +315,28 @@ RoomRepository.prototype.leave = function()
 };
 
 /**
+ * Set team
+ *
+ * @param {Room} room
+ * @param {Number} player
+ * @param {String} color
+ * @param {Function} callback
+ */
+RoomRepository.prototype.setTeam = function(player, team, callback)
+{
+    this.client.addEvent('room:team', {
+        player: player.id,
+        team: team
+    }, function (result) {
+        if (!result.success) {
+            console.error('Could not set team %s for player %s', player.team, player.name);
+        }
+        player.team = result.team;
+        callback(result);
+    });
+};
+
+/**
  * Set color
  *
  * @param {Room} room
@@ -381,6 +406,7 @@ RoomRepository.prototype.setConfigOpen = function(open, callback)
  */
 RoomRepository.prototype.setConfigIsClockGame = function(isClockGame, callback)
 {
+    console.log(isClockGame);
     this.client.addEvent('room:config:isClockGame', {isClockGame: isClockGame ? true : false}, callback);
 };
 
@@ -390,7 +416,7 @@ RoomRepository.prototype.setConfigIsClockGame = function(isClockGame, callback)
  * @param {Boolean} open
  * @param {Function} callback
  */
-RoomRepository.prototype.setConfigIsClockGame = function(isTeamGame, callback)
+RoomRepository.prototype.setConfigIsTeamGame = function(isTeamGame, callback)
 {
     this.client.addEvent('room:config:isTeamGame', {isTeamGame: isTeamGame ? true : false}, callback);
 };
@@ -473,6 +499,7 @@ RoomRepository.prototype.onJoinRoom = function(e)
             this.clients.getById(data.player.client),
             data.player.name,
             data.player.color,
+            data.player.team,
             data.player.ready
         );
 
@@ -512,6 +539,24 @@ RoomRepository.prototype.onClientActivity = function(e)
     if (client) {
         client.active = e.detail.active;
         this.emit('client:activity', {client: client, active: client.active});
+    }
+};
+
+
+/**
+ * On player change team
+ *
+ * @param {Event} e
+ */
+RoomRepository.prototype.onPlayerTeam = function(e)
+{
+    var data = e.detail,
+        player = this.room.players.getById(data.player);
+
+    console.info(player);
+    if (player) {
+        player.setTeam(data.team);
+        this.emit('player:team', {player: player});
     }
 };
 
@@ -602,7 +647,9 @@ RoomRepository.prototype.onConfigIsClockGame = function(e)
     var data = e.detail;
 
     this.room.config.setIsClockGame(data.isClockGame);
-
+    
+    console.log(data.isClockGame);
+    
     this.emit('room:config:isClockGame', {isClockGame: data.isClockGame});
 };
 /**

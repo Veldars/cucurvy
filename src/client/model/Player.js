@@ -7,9 +7,9 @@
  * @param {String} color
  * @param {Boolean} ready
  */
-function Player(id, client, name, color, ready)
+function Player(id, client, name, color, team, ready)
 {
-    BasePlayer.call(this, client, name, color, ready);
+    BasePlayer.call(this, client, name, color, team, ready);
 
     this.id       = id;
     this.local    = false;
