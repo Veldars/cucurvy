@@ -31,7 +31,7 @@ BonusEnemy.prototype.affect = 'enemy';
  */
 BonusEnemy.prototype.getTarget = function(avatar, game)
 {
-    return game.avatars.filter(function () { return this.alive && !this.equal(avatar); }).items;
+    return game.avatars.filter(function () { return this.alive && !this.equal(avatar) && (!game.room.config.isTeamGame || this.team !== avatar.team); }).items;
 };
 
 /**
