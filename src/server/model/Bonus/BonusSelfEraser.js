@@ -17,7 +17,7 @@ BonusSelfEraser.prototype.constructor = BonusSelfEraser;
  *
  * @type {Number}
  */
-BonusSelfEraser.prototype.duration = 20000;
+BonusSelfEraser.prototype.duration = 90000;
 
 /**
  * Get effects
