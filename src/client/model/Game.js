@@ -13,6 +13,12 @@ function Game(room)
     this.onDie    = this.onDie.bind(this);
     this.degrees  = 0;
     this.prevDegrees  = 0;
+    
+    this.onLoad = this.onLoad.bind(this);
+    
+    this.loaded = false;
+    
+    this.backgroundSprite = new SpriteAsset('images/cat.jpg', 1, 1, this.onLoad, true);
 
     window.addEventListener('error', this.stop);
     window.addEventListener('resize', this.onResize);
@@ -31,6 +37,14 @@ Game.prototype.constructor = Game;
  * @type {Number}
  */
 Game.prototype.stackMargin = 15;
+
+
+/**
+ * Assets
+ *
+ * @type {Object}
+ */
+Game.prototype.assets = {};
 
 /**
  * Background color
@@ -52,6 +66,22 @@ Game.prototype.loadDOM = function()
 
     this.bonusManager.loadDOM();
     this.onResize();
+};
+
+/**
+ * On bonus sprite loaded
+ */
+Game.prototype.onLoad = function()
+{
+    var images = this.backgroundSprite.getImages();
+
+    for (var i = 0; i >= 0; i--) {
+        this.assets[i] = images[i];
+    }
+
+    this.loaded = true;
+    this.clearBackground();
+    //this.emit('load');
 };
 
 /**
@@ -288,7 +318,7 @@ Game.prototype.clearBonusStack = function(avatar)
 };
 
 
-/**
+/*
  * Draw bonus stack
  *
  * @param {Avatar} avatar
@@ -307,7 +337,7 @@ Game.prototype.drawBonusStack = function(avatar)
     }
 };
 
-/**
+/*
  * Draw arrow
  *
  * @param {Avatar} avatar
@@ -323,6 +353,10 @@ Game.prototype.drawArrow = function(avatar)
 Game.prototype.clearBackground = function()
 {
     this.background.color(this.backgroundColor);
+    if (this.loaded) {
+        console.log("Draw Image");
+        this.background.drawImage(this.assets[0], 0, 0, this.background.element.width, this.background.element.height);
+    }
 };
 
 /**

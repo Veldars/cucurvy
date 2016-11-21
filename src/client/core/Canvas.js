@@ -90,7 +90,7 @@ Canvas.prototype.setDimension = function(width, height, scale, update)
     }
 };
 
-/**
+/*
  * Set opacity
  *
  * @param {Float} opacity
@@ -99,7 +99,7 @@ Canvas.prototype.setOpacity = function(opacity) {
     this.context.globalAlpha = opacity;
 };
 
-/**
+/*
  * Clear
  */
 Canvas.prototype.clear = function()
