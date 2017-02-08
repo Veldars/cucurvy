@@ -136,6 +136,10 @@ PlayerInput.prototype.onKeyUp = function(e)
 {
     var index = this.binding.indexOf(e.keyCode);
 
+    if (e.keyCode === 32) {
+        this.askPause();
+    }
+    
     if (index >= 0) {
         this.setActive(index, false);
     }
@@ -259,6 +263,16 @@ PlayerInput.prototype.setMove = function(move)
 {
     this.move = move;
     this.emit('move', {avatar: this.avatar, move: move});
+};
+
+/**
+ * Set move
+ *
+ * @param {Boolean} move
+ */
+PlayerInput.prototype.askPause = function()
+{
+    this.emit('pause', {avatar: this.avatar});
 };
 
 /**

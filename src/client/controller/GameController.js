@@ -29,6 +29,7 @@ function GameController($scope, $routeParams, $location, client, repository, cha
     // Binding
     this.checkReady   = this.checkReady.bind(this);
     this.onMove       = this.onMove.bind(this);
+    this.onPause       = this.onPause.bind(this);
     this.onSpectate   = this.onSpectate.bind(this);
     this.onUnload     = this.onUnload.bind(this);
     this.onExit       = this.onExit.bind(this);
@@ -104,6 +105,7 @@ GameController.prototype.loadGame = function(game)
         avatar = this.game.avatars.items[i];
         if (avatar.local) {
             avatar.input.on('move', this.onMove);
+            avatar.input.on('pause', this.onPause);
             if (avatar.input.useGamepad()) {
                 gamepadListener.start();
             }
@@ -154,6 +156,21 @@ GameController.prototype.onFirstRound = function(e)
 GameController.prototype.onMove = function(e)
 {
     this.client.addEvent('player:move', {avatar: e.detail.avatar.id, move: e.detail.move ? e.detail.move : 0});
+};
+
+/**
+ * On move
+ *
+ * @param {Event} e
+ */
+GameController.prototype.onPause = function(e)
+{
+    console.log('PlayerPause : ' + this.client.id);
+    console.log('Maser : ' + this.client.master);
+        this.client.addEvent('player:pause', {avatar: e.detail.avatar.id});
+    if (this.client.master) {
+        this.client.addEvent('player:pause', {avatar: e.detail.avatar.id});
+    }
 };
 
 /**
@@ -240,6 +257,7 @@ GameController.prototype.close = function()
 
         for (var i = avatars.length - 1; i >= 0; i--) {
             avatars[i].input.off('move', this.onMove);
+            avatars[i].input.off('pause', this.onPause);
         }
 
         delete this.game;

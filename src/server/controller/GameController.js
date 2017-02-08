@@ -5,6 +5,7 @@ function GameController(game)
 {
     var controller = this;
 
+    this.isPaused    = false;
     this.game        = game;
     this.clients     = new Collection();
     this.socketGroup = new SocketGroup(this.clients);
@@ -37,7 +38,8 @@ function GameController(game)
 
     this.callbacks = {
         onReady: function () { controller.onReady(this); },
-        onMove: function (data) { controller.onMove(this, data); }
+        onMove: function (data) { controller.onMove(this, data); },
+        onPause: function (data) { controller.onPause(this, data); }
     };
 
     this.loadGame();
@@ -149,6 +151,7 @@ GameController.prototype.attachEvents = function(client)
 
     if (!client.players.isEmpty()) {
         client.on('player:move', this.callbacks.onMove);
+        client.on('player:pause', this.callbacks.onPause);
     }
 
     for (var avatar, i = client.players.items.length - 1; i >= 0; i--) {
@@ -182,6 +185,7 @@ GameController.prototype.detachEvents = function(client)
 
     if (!client.players.isEmpty()) {
         client.removeListener('player:move', this.callbacks.onMove);
+        client.removeListener('player:pause', this.callbacks.onPause);
     }
 
     for (var i = client.players.items.length - 1; i >= 0; i--) {
@@ -340,6 +344,21 @@ GameController.prototype.onMove = function(client, data)
 
     if (player && player.avatar) {
         player.avatar.updateAngularVelocity(data.move);
+    }
+};
+
+/**
+ * On pause
+ *
+ * @param {SocketClient} client
+ * @param {Number} move
+ */
+GameController.prototype.onPause = function(client, data)
+{
+    var player = client.players.getById(data.avatar);
+
+    if (player && data.avatar === this.game.room.controller.roomMaster.id) {
+        this.isPaused = !this.isPaused;
     }
 };
 

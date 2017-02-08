@@ -39,6 +39,9 @@ Game.prototype.constructor = Game;
  */
 Game.prototype.update = function(step)
 {
+    if (this.controller.isPaused) {
+        return;
+    }
     if (this.room.config.isClockGame) {
         var deltaTime = 0;
         if (this.time === 0) {
