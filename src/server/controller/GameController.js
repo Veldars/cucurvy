@@ -356,9 +356,12 @@ GameController.prototype.onMove = function(client, data)
 GameController.prototype.onPause = function(client, data)
 {
     var player = client.players.getById(data.avatar);
-
-    if (player && data.avatar === this.game.room.controller.roomMaster.id) {
-        this.isPaused = !this.isPaused;
+    console.log("Player try to pause");
+    console.log(data.avatar);
+    console.log(this.game.room.controller.roomMaster.id);
+    if (player && this.game.room.controller.isRoomMaster(client)) {
+        console.log("As the player is master, pause OK");
+	this.isPaused = !this.isPaused;
     }
 };
 
