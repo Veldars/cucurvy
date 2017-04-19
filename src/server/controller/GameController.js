@@ -521,7 +521,7 @@ GameController.prototype.onGenerateMap = function() {
         var radius= Math.random() * 5;
 
         var circlePoint = [];
-        for(var degree=0;degree<360;degree++){
+        for(var degree=0;degree<360;degree+=10){
             var radians = degree * Math.PI/180;
             var x = centerX + radius * Math.cos(radians);
             var y = centerY + radius * Math.sin(radians);
