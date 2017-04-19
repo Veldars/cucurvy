@@ -30,6 +30,7 @@ function GameController($scope, $routeParams, $location, client, repository, cha
     this.checkReady   = this.checkReady.bind(this);
     this.onMove       = this.onMove.bind(this);
     this.onPause       = this.onPause.bind(this);
+    this.onGenerateMap       = this.onGenerateMap.bind(this);
     this.onSpectate   = this.onSpectate.bind(this);
     this.onUnload     = this.onUnload.bind(this);
     this.onExit       = this.onExit.bind(this);
@@ -165,12 +166,22 @@ GameController.prototype.onMove = function(e)
  */
 GameController.prototype.onPause = function(e)
 {
-    console.log('PlayerPause : ' + this.client.id);
-    console.log('Maser : ' + this.client.master);
+    /*console.log('PlayerPause : ' + this.client.id);
+    console.log('Maser : ' + this.client.master);*/
         this.client.addEvent('player:pause', {avatar: e.detail.avatar.id});
     if (this.client.master) {
         this.client.addEvent('player:pause', {avatar: e.detail.avatar.id});
     }
+};
+
+/**
+ * On move
+ *
+ * @param {Event} e
+ */
+GameController.prototype.onGenerateMap = function(e)
+{
+    this.game.drawPoints(e.detail.points);
 };
 
 /**

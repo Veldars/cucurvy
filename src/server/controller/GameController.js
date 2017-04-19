@@ -356,9 +356,6 @@ GameController.prototype.onMove = function(client, data)
 GameController.prototype.onPause = function(client, data)
 {
     var player = client.players.getById(data.avatar);
-    console.log("Player try to pause");
-    console.log(data.avatar);
-    console.log(this.game.room.controller.roomMaster.id);
     if (player && this.game.room.controller.isRoomMaster(client)) {
         console.log("As the player is master, pause OK");
 	this.isPaused = !this.isPaused;
@@ -502,7 +499,39 @@ GameController.prototype.onBonusStack = function(data)
  */
 GameController.prototype.onGameStart = function(data)
 {
+    if (this.game.room.config.isMapGame) {
+        this.onGenerateMap();
+    }
     this.socketGroup.addEvent('game:start');
+};
+
+
+GameController.prototype.onGenerateMap = function() {
+    var mapSize = this.game.world.size;
+
+    var nbCircle = Math.random() * 10 + 5;
+
+    // an array to save your points
+    var points=[];
+    var world = this.game.world;
+    for (var i = 0; i < nbCircle; i++) {
+
+        var centerX=    Math.random() * (mapSize - 10) + 5 ;
+        var centerY=    Math.random() * (mapSize - 10) + 5 ;
+        var radius= Math.random() * 5;
+
+        var circlePoint = [];
+        for(var degree=0;degree<360;degree++){
+            var radians = degree * Math.PI/180;
+            var x = centerX + radius * Math.cos(radians);
+            var y = centerY + radius * Math.sin(radians);
+            points.push([x,y]);
+            circlePoint.push([x,y]);
+        }
+        this.socketGroup.addEvent('drawPoints', {points: circlePoint});
+    }
+
+    setTimeout(function() {world.addMap(points);}, 3000);
 };
 
 /**

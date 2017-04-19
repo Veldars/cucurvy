@@ -214,7 +214,6 @@ BaseSocketClient.prototype.onMessage = function (e)
     for (var i = 0; i < length; i++) {
         source = data[i];
         name = source[0];
-
         if (typeof(name) === 'string') {
             if (source.length === 3) {
                 this.emit(name, [source[1], this.createCallback(source[2])]);

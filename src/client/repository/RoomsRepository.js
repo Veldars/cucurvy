@@ -19,6 +19,7 @@ function RoomsRepository(client)
     
     this.onRoomConfigIsClockGame = this.onRoomConfigIsClockGame.bind(this);
     this.onRoomConfigIsTeamGame = this.onRoomConfigIsTeamGame.bind(this);
+    this.onRoomConfigIsMapGame = this.onRoomConfigIsMapGame.bind(this);
 }
 
 RoomsRepository.prototype = Object.create(EventEmitter.prototype);
@@ -38,6 +39,7 @@ RoomsRepository.prototype.attachEvents = function()
     
     this.client.on('room:config:isClockGame', this.onRoomConfigIsClockGame);
     this.client.on('room:config:isTeamGame', this.onRoomConfigIsTeamGame);
+    this.client.on('room:config:isMapGame', this.onRoomConfigIsMapGame);
 };
 
 /**
@@ -53,6 +55,7 @@ RoomsRepository.prototype.detachEvents = function()
     
     this.client.off('room:config:isClockGame', this.onRoomConfigIsClockGame);
     this.client.off('room:config:isTeamGame', this.onRoomConfigIsTeamGame);
+    this.client.off('room:config:isMapGame', this.onRoomConfigIsMapGame);
 };
 
 /**
@@ -184,6 +187,22 @@ RoomsRepository.prototype.onRoomConfigIsTeamGame = function(e)
     if(room) {
         room.isTeamGame = e.detail.isTeamGame;
         this.emit('room:config:isTeamGame', room);
+    }
+};
+/**
+ * On room config map Game change
+ *
+ * @param {Event} e
+ *
+ * @return {Boolean}
+ */
+RoomsRepository.prototype.onRoomConfigIsMapGame = function(e)
+{
+    var room = this.get(e.detail.name);
+
+    if(room) {
+        room.isMapGame = e.detail.isMapGame;
+        this.emit('room:config:isMapGame', room);
     }
 };
 /**

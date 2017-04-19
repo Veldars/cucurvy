@@ -20,6 +20,8 @@ function Game(room)
 
     this.onPoint = this.onPoint.bind(this);
 
+    // this.emit("drawPoint", {points: [[5,5],[6,6],[7,7],[8,8]]});
+
     var avatar, i;
 
     for (i = this.avatars.items.length - 1; i >= 0; i--) {
@@ -90,14 +92,14 @@ Game.prototype.update = function(step)
                     killer = this.world.getBody(avatar.body);
 		    
                     if (killer && !avatar.eraser) {
-			this.kill(avatar, killer, score);
+			            this.kill(avatar, killer, score);
                     }
-		    if (killer && avatar.eraser) {
-			var pts = this.world.removeMultipleBody(killer);
-			var bonus = avatar.bonusStack.getBonus('eraser');
-			avatar.bonusStack.remove(bonus);
-			avatar.onEraser(pts);
-		    }
+                    if (killer && avatar.eraser) {
+                        var pts = this.world.removeMultipleBody(killer);
+                        var bonus = avatar.bonusStack.getBonus('eraser');
+                        avatar.bonusStack.remove(bonus);
+                        avatar.onEraser(pts);
+                    }
                 }
             }
 

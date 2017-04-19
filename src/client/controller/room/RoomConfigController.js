@@ -21,6 +21,7 @@ function RoomConfigController($scope, repository)
     
     this.setIsClockGame      = this.setIsClockGame.bind(this);
     this.setIsTeamGame      = this.setIsTeamGame.bind(this);
+    this.setIsMapGame      = this.setIsMapGame.bind(this);
 
     // Hydrating scope
     this.$scope.toggleBonus  = this.toggleBonus;
@@ -31,9 +32,11 @@ function RoomConfigController($scope, repository)
     
     this.$scope.setIsClockGame     = this.setIsClockGame;
     this.$scope.setIsTeamGame      = this.setIsTeamGame;
+    this.$scope.setIsMapGame      = this.setIsMapGame;
     
     this.repository.on('config:isClockGame', this.digestScope);
     this.repository.on('config:isTeamGame', this.digestScope);
+    this.repository.on('config:isMapGame', this.digestScope);
 
     this.repository.on('config:open', this.digestScope);
     this.repository.on('config:max-score', this.digestScope);
@@ -140,6 +143,19 @@ RoomConfigController.prototype.setIsTeamGame = function(isTeamGame)
     }
 };
 
+/**
+ * Set map game
+ */
+RoomConfigController.prototype.setIsMapGame = function(isMapGame)
+{
+    if (this.repository.amIMaster()) {
+        var config = this.config;
+
+        this.repository.setConfigIsMapGame(isMapGame, function (result) {
+            config.setIsMapGame(result.isMapGame);
+        });
+    }
+};
 /**
  * Set clock game
  */

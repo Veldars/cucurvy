@@ -27,3 +27,8 @@ Body.prototype.match = function(body)
 {
     return true;
 };
+
+Body.prototype.isOld = function()
+{
+    return true;
+};

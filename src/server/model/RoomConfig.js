@@ -92,6 +92,24 @@ RoomConfig.prototype.setIsTeamGame = function(isTeamGame)
 
     return false;
 };
+
+/**
+ * Set isMapGame
+ *
+ * @param {Boolean} isMapGame
+ */
+RoomConfig.prototype.setIsMapGame = function(isMapGame)
+{
+    if (this.isMapGame !== isMapGame) {
+        this.isMapGame     = isMapGame;
+
+        this.emit('room:config:isMapGame', {room: this.room, isMapGame: this.isMapGame});
+
+        return true;
+    }
+
+    return false;
+};
 /**
  * Get available bonuses
  *

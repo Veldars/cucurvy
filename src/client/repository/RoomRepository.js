@@ -36,6 +36,7 @@ function RoomRepository(client)
     
     this.onConfigIsClockGame     = this.onConfigIsClockGame.bind(this);
     this.onConfigIsTeamGame     = this.onConfigIsTeamGame.bind(this);
+    this.onConfigIsMapGame     = this.onConfigIsMapGame.bind(this);
 }
 
 RoomRepository.prototype = Object.create(EventEmitter.prototype);
@@ -69,6 +70,7 @@ RoomRepository.prototype.attachEvents = function()
     
     this.client.on('room:config:isClockGame', this.onConfigIsClockGame);
     this.client.on('room:config:isTeamGame', this.onConfigIsTeamGame);
+    this.client.on('room:config:isMapGame', this.onConfigIsMapGame);
 };
 
 /**
@@ -99,6 +101,7 @@ RoomRepository.prototype.detachEvents = function()
     
     this.client.off('room:config:isClockGame', this.onConfigIsClockGame);
     this.client.off('room:config:isTeamGame', this.onConfigIsTeamGame);
+    this.client.off('room:config:isMapGame', this.onConfigIsMapGame);
 };
 
 /**
@@ -193,6 +196,7 @@ RoomRepository.prototype.createRoom = function(data, clients)
     room.config.setOpen(data.config.open);
     room.config.setIsClockGame(data.config.isClockGame);
     room.config.setIsTeamGame(data.config.isTeamGame);
+    room.config.setIsMapGame(data.config.isMapGame);
     room.config.setPassword(data.config.password);
     room.config.setMaxScore(data.config.maxScore);
 
@@ -419,6 +423,17 @@ RoomRepository.prototype.setConfigIsClockGame = function(isClockGame, callback)
 RoomRepository.prototype.setConfigIsTeamGame = function(isTeamGame, callback)
 {
     this.client.addEvent('room:config:isTeamGame', {isTeamGame: isTeamGame ? true : false}, callback);
+};
+
+/**
+ * Set config isMapGame
+ *
+ * @param {Boolean} open
+ * @param {Function} callback
+ */
+RoomRepository.prototype.setConfigIsMapGame = function(isMapGame, callback)
+{
+    this.client.addEvent('room:config:isMapGame', {isMapGame: isMapGame ? true : false}, callback);
 };
 
 /**
@@ -664,6 +679,19 @@ RoomRepository.prototype.onConfigIsTeamGame = function(e)
     this.room.config.setIsTeamGame(data.isTeamGame);
 
     this.emit('room:config:isTeamGame', {isTeamGame: data.isTeamGame});
+};
+/**
+ * On config isMapGame
+ *
+ * @param {Event} e
+ */
+RoomRepository.prototype.onConfigIsMapGame = function(e)
+{
+    var data = e.detail;
+
+    this.room.config.setIsMapGame(data.isMapGame);
+
+    this.emit('room:config:isMapGame', {isMapGame: data.isMapGame});
 };
 /**
  * On config max score

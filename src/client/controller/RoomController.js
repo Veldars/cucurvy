@@ -60,6 +60,7 @@ function RoomController($scope, $routeParams, $location, client, repository, pro
     
     this.onConfigIsClockGame     = this.onConfigIsClockGame.bind(this);
     this.onConfigIsTeamGame     = this.onConfigIsTeamGame.bind(this);
+    this.onConfigIsMapGame     = this.onConfigIsMapGame.bind(this);
 
     this.$scope.$on('$destroy', this.leaveRoom);
 
@@ -171,6 +172,7 @@ RoomController.prototype.attachEvents = function()
     
     this.repository.on('room:config:isClockGame', this.onConfigIsClockGame);
     this.repository.on('room:config:isTeamGame', this.onConfigIsTeamGame);
+    this.repository.on('room:config:isMapGame', this.onConfigIsMapGame);
 
     for (var i = this.room.players.items.length - 1; i >= 0; i--) {
         this.room.players.items[i].on('control:change', this.onControlChange);
@@ -198,6 +200,7 @@ RoomController.prototype.detachEvents = function()
     
     this.repository.off('room:config:isClockGame', this.onConfigIsClockGame);
     this.repository.off('room:config:isTeamGame', this.onConfigIsTeamGame);
+    this.repository.off('room:config:isMapGame', this.onConfigIsMapGame);
 
     if (this.room) {
         for (var i = this.room.players.items.length - 1; i >= 0; i--) {
@@ -306,6 +309,13 @@ RoomController.prototype.onConfigIsClockGame = function(e)
 RoomController.prototype.onConfigIsTeamGame = function(e)
 {
     console.log('IsTeamGame : ' + this.room.config.isTeamGame);
+};
+/**
+ * Go room config is asmp game
+ */
+RoomController.prototype.onConfigIsMapGame = function(e)
+{
+    console.log('IsMapGame : ' + this.room.config.isMapGame);
 };
 /**
  * On join

@@ -23,6 +23,8 @@ function Game(room)
     window.addEventListener('error', this.stop);
     window.addEventListener('resize', this.onResize);
 
+    //this.on("drawPoint", this.drawPoints);
+
     for (var avatar, i = this.avatars.items.length - 1; i >= 0; i--) {
         this.avatars.items[i].on('die', this.onDie);
     }
@@ -271,11 +273,38 @@ Game.prototype.rotate = function(angle) {
 Game.prototype.drawTail = function(avatar)
 {
     var points = avatar.trail.getLastSegment();
-
     if (points) {
         this.background.drawLineScaled(points, avatar.width, avatar.color, 'round');
     }
 };
+
+/**
+ * Draw tail
+ *
+ * @param {Points} points
+ */
+Game.prototype.drawPoints = function(points)
+{
+    if (points) {
+        this.background.drawLineScaled(points, 1.2, this.getRandomColor(), 'round');
+    }
+};
+
+/**
+ * Get random Color
+ *
+ * @return {String}
+ */
+Game.prototype.getRandomColor = function()
+{
+    var color = '',
+        randomNum = function () { return Math.ceil(Math.random() * 200 + 55).toString(16); };
+
+    color = '#' + randomNum() + randomNum() + randomNum();
+
+    return color;
+};
+
 
 /**
  * Draw avatar

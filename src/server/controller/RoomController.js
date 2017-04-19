@@ -46,6 +46,7 @@ function RoomController(room)
         
         onConfigIsClockGame: function (data) { controller.onConfigIsClockGame(this, data[0], data[1]); },
         onConfigIsTeamGame: function (data) { controller.onConfigIsTeamGame(this, data[0], data[1]); },
+        onConfigIsMapGame: function (data) { controller.onConfigIsMapGame(this, data[0], data[1]); },
         
         onConfigMaxScore: function (data) { controller.onConfigMaxScore(this, data[0], data[1]); },
         onConfigVariable: function (data) { controller.onConfigVariable(this, data[0], data[1]); },
@@ -241,6 +242,7 @@ RoomController.prototype.setRoomMaster = function(client)
         
         this.roomMaster.on('room:config:isClockGame', this.callbacks.onConfigIsClockGame);
         this.roomMaster.on('room:config:isTeamGame', this.callbacks.onConfigIsTeamGame);
+        this.roomMaster.on('room:config:isMapGame', this.callbacks.onConfigIsMapGame);
     }
 };
 
@@ -260,6 +262,7 @@ RoomController.prototype.removeRoomMaster = function()
         
         this.roomMaster.removeListener('room:config:isClockGame', this.callbacks.onConfigIsClockGame);
         this.roomMaster.removeListener('room:config:isTeamGame', this.callbacks.onConfigIsTeamGame);
+        this.roomMaster.removeListener('room:config:isMapGame', this.callbacks.onConfigIsMapGame);
         
         this.roomMaster = null;
         this.nominateRoomMaster();
@@ -694,6 +697,30 @@ RoomController.prototype.onConfigIsTeamGame = function(client, data, callback)
         });
     }
 };
+
+/**
+ * On config is map Game
+ *
+ * @param {SocketClient} client
+ * @param {Object} data
+ * @param {Function} callback
+ */
+RoomController.prototype.onConfigIsMapGame = function(client, data, callback)
+{
+    var success = this.isRoomMaster(client) && this.room.config.setIsMapGame(data.isMapGame);
+
+    callback({
+        success: success,
+        isMapGame: this.room.config.isMapGame
+    });
+
+    if (success) {
+        this.socketGroup.addEvent('room:config:isMapGame', {
+            isMapGame: this.room.config.isMapGame
+        });
+    }
+};
+
 
 /**
  * On config max score

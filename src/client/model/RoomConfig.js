@@ -94,6 +94,15 @@ RoomConfig.prototype.setIsTeamGame = function(isTeamGame)
     this.isTeamGame = isTeamGame;
 };
 /**
+ * Set map game
+ *
+ * @param {String} isMapGame
+ */
+RoomConfig.prototype.setIsMapGame = function(isMapGame)
+{
+    this.isMapGame = isMapGame;
+};
+/**
  * Set password
  *
  * @param {String} password

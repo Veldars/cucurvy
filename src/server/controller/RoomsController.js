@@ -216,6 +216,15 @@ RoomsController.prototype.onRoomConfigIsTeamGame = function(data)
     this.socketGroup.addEvent('room:config:isTeamGame', {name: data.room.name, isTeamGame: data.isTeamGame});
 };
 /**
+ * On room config map
+ *
+ * @param {Object} data
+ */
+RoomsController.prototype.onRoomConfigIsMapGame = function(data)
+{
+    this.socketGroup.addEvent('room:config:isMapGame', {name: data.room.name, isMapGame: data.isMapGame});
+};
+/**
  * On player leave/join a room
  *
  * @param {Object} data

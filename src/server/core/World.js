@@ -63,6 +63,32 @@ World.prototype.addBody = function(body)
 };
 
 /**
+ * Add a body to all concerned islands
+ *
+ * @param {Body} body
+ */
+World.prototype.addMap = function(maps)
+{
+    //if (!this.active) {
+    //    return;
+    //}
+    var radius = 0.6;
+
+    console.log("Add Map : " + maps.length);
+    
+    for (var i = 0; i < maps.length; i++) {
+        this.activate();
+        var body   = new Body(maps[i][0], maps[i][1], radius);
+        this.addBody(body);
+
+        
+        //var island = new Island(body.id, radius, maps[i][0] * radius, maps[i][1] * radius);
+        //island.addBody(body);
+        //this.islands.add(island);
+    }
+};
+
+/**
  * Add a body to an island if it's concerned by the given point
  *
  * @param {Body} body

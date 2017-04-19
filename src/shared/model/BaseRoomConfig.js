@@ -11,6 +11,7 @@ function BaseRoomConfig(room)
     this.password = null;
     this.isClockGame = false;
     this.isTeamGame = false;
+    this.isMapGame = false;
 
     this.variables = { 
         worldSize: 0, 
@@ -230,6 +231,7 @@ BaseRoomConfig.prototype.serialize = function()
         open: this.open,
         password: this.password,
         isClockGame: this.isClockGame,
-        isTeamGame: this.isTeamGame
+        isTeamGame: this.isTeamGame,
+        isMapGame: this.isMapGame
     };
 };

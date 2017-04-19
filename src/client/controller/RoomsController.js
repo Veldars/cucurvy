@@ -52,6 +52,7 @@ RoomsController.prototype.attachEvents = function()
     this.repository.on('room:config:open', this.requestDigestScope);
     this.repository.on('room:config:isClockGame', this.requestDigestScope);
     this.repository.on('room:config:isTeamGame', this.requestDigestScope);
+    this.repository.on('room:config:isMapGame', this.requestDigestScope);
 
     this.repository.start();
 };
@@ -70,6 +71,7 @@ RoomsController.prototype.detachEvents = function()
     this.repository.off('room:config:open', this.requestDigestScope);
     this.repository.off('room:config:isClockGame', this.requestDigestScope);
     this.repository.off('room:config:isTeamGame', this.requestDigestScope);
+    this.repository.off('room:config:isMapGame', this.requestDigestScope);
 };
 
 /**

@@ -20,6 +20,7 @@ function GameRepository(client, parent, sound, notifier)
     this.stop         = this.stop.bind(this);
     this.draw         = this.draw.bind(this);
     this.onGameStart  = this.onGameStart.bind(this);
+    this.onDrawMap    = this.onDrawMap.bind(this);
     this.onGameStop   = this.onGameStop.bind(this);
     this.onBonusPop   = this.onBonusPop.bind(this);
     this.onBonusClear = this.onBonusClear.bind(this);
@@ -71,6 +72,7 @@ GameRepository.prototype.stop = function()
  */
 GameRepository.prototype.attachEvents = function()
 {
+    this.client.on('drawPoints', this.onDrawMap);
     this.client.on('game:start', this.onGameStart);
     this.client.on('game:stop', this.onGameStop);
     this.client.on('property', this.onProperty);
@@ -98,6 +100,7 @@ GameRepository.prototype.attachEvents = function()
  */
 GameRepository.prototype.detachEvents = function()
 {
+    this.client.off('drawPoints', this.onDrawMap);
     this.client.off('game:start', this.onGameStart);
     this.client.off('game:stop', this.onGameStop);
     this.client.off('property', this.onProperty);
@@ -192,6 +195,19 @@ GameRepository.prototype.onGameStart = function(e)
 };
 
 /**
+ * onDrawMap
+ *
+ * @param {Event} e
+ */
+GameRepository.prototype.onDrawMap = function(e)
+{
+    if (e.detail && e.detail.points) {
+        this.game.drawPoints(e.detail.points);
+    }
+    //console.log(this.compressor.decompress(e.detail.points));
+};
+
+/**
  * On game stop
  *
  * @param {Event} e
@@ -217,6 +233,7 @@ GameRepository.prototype.onProperty = function(e)
         avatar.set(data[1], data[2]);
     }
 };
+
 
 /**
  * On position
