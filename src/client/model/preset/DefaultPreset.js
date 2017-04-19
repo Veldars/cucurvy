@@ -22,10 +22,9 @@ DefaultPreset.prototype.name = 'All';
  * @type {Array}
  */
 DefaultPreset.prototype.bonuses = [
-				   /*    'BonusSelfSmall',
+    'BonusSelfSmall',
     'BonusSelfSlow',
     'BonusSelfFast',
-    'BonusSelfMaster',
     'BonusSelfGhost',
     'BonusEnemySlow',
     'BonusEnemyFast',
@@ -36,10 +35,8 @@ DefaultPreset.prototype.bonuses = [
     'BonusEnemyPause',
     'BonusSelfDotLine',
     'BonusGameBorderless',
-    'BonusAllColor',
-    'BonusGameClear',
 				   'BonusSelfGhost',
 				   'BonusSelfEraser',
-                    'BonusGameMaster',*/
-                    'BonusEnemyWorldRotor'
+     'BonusGameMaster'
 ];
+

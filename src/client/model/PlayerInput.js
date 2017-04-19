@@ -136,7 +136,7 @@ PlayerInput.prototype.onKeyUp = function(e)
 {
     var index = this.binding.indexOf(e.keyCode);
 
-    if (e.keyCode === 32) {
+    if (e.keyCode === 112) {
         this.askPause();
     }
     

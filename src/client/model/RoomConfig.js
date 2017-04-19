@@ -8,7 +8,7 @@ function RoomConfig(room)
     BaseRoomConfig.call(this, room);
 
     this.preset       = this.getDefaultPreset();
-    this.customPreset = new CustomPreset();
+    this.customPreset = new DefaultPreset();
 }
 
 RoomConfig.prototype = Object.create(BaseRoomConfig.prototype);

@@ -1,2 +1,594 @@
 Listening on port 80
 Client 1 connected.
+Client 2 connected.
+Client 3 connected.
+Client 4 connected.
+Client 5 connected.
+Client 5 disconnected.
+Client 6 connected.
+Client 7 connected.
+Client 8 connected.
+Client 8 disconnected.
+Client 7 disconnected.
+Client 9 connected.
+Player try to pause
+6
+1
+Player try to pause
+6
+1
+Player try to pause
+6
+1
+Player try to pause
+6
+1
+Client 3 disconnected.
+Client 9 disconnected.
+Client 6 disconnected.
+Client 4 disconnected.
+Client 2 disconnected.
+Client 1 disconnected.
+Client 10 connected.
+Client 10 disconnected.
+Client 11 connected.
+Client 11 disconnected.
+Client 12 connected.
+Client 12 disconnected.
+Client 13 connected.
+Client 14 connected.
+Client 14 disconnected.
+Client 15 connected.
+Client 16 connected.
+Client 17 connected.
+Client 18 connected.
+Client 19 connected.
+Client 19 disconnected.
+Client 20 connected.
+Player try to pause
+2
+15
+Player try to pause
+2
+15
+Player try to pause
+2
+15
+Player try to pause
+2
+15
+Player try to pause
+2
+15
+Player try to pause
+2
+15
+Client 13 disconnected.
+Client 18 disconnected.
+Client 17 disconnected.
+Client 21 connected.
+Client 21 disconnected.
+Client 22 connected.
+Client 23 connected.
+Client 23 disconnected.
+Client 20 disconnected.
+Client 15 disconnected.
+Client 22 disconnected.
+Client 16 disconnected.
+Client 24 connected.
+Client 24 disconnected.
+Client 25 connected.
+Client 26 connected.
+Client 27 connected.
+Client 27 disconnected.
+Client 28 connected.
+Client 29 connected.
+Client 29 disconnected.
+Client 30 connected.
+Client 31 connected.
+Client 31 disconnected.
+Client 32 connected.
+Player try to pause
+2
+25
+Player try to pause
+2
+25
+Player try to pause
+2
+25
+Player try to pause
+2
+25
+Client 28 disconnected.
+Client 26 disconnected.
+Client 25 disconnected.
+Client 32 disconnected.
+Client 30 disconnected.
+Client 33 connected.
+Client 33 disconnected.
+Client 34 connected.
+Client 35 connected.
+Client 36 connected.
+Client 37 connected.
+Client 38 connected.
+Client 38 disconnected.
+Client 39 connected.
+Client 39 disconnected.
+Client 40 connected.
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+1
+34
+As the player is master, pause OK
+Player try to pause
+1
+34
+As the player is master, pause OK
+Player try to pause
+3
+34
+Player try to pause
+3
+34
+Player try to pause
+3
+34
+Player try to pause
+3
+34
+Player try to pause
+3
+34
+Player try to pause
+1
+34
+As the player is master, pause OK
+Player try to pause
+1
+34
+As the player is master, pause OK
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Player try to pause
+2
+34
+Client 35 disconnected.
+Client 37 disconnected.
+Client 36 disconnected.
+Client 40 disconnected.
+Client 34 disconnected.
+Client 41 connected.
+Client 42 connected.
+Client 43 connected.
+Client 44 connected.
+Client 44 disconnected.
+Client 45 connected.
+Client 45 disconnected.
+Client 46 connected.
+Client 46 disconnected.
+Client 47 connected.
+Client 48 connected.
+Client 49 connected.
+Player try to pause
+6
+41
+Player try to pause
+6
+41
+Player try to pause
+2
+41
+Client 42 disconnected.
+Client 43 disconnected.
+Client 41 disconnected.
+Client 47 disconnected.
+Client 48 disconnected.
+Client 49 disconnected.
+Client 50 connected.
+Client 50 disconnected.
+Client 51 connected.
+Client 52 connected.
+Client 52 disconnected.
+Client 53 connected.
+Client 54 connected.
+Client 55 connected.
+Client 55 disconnected.
+Client 56 connected.
+Client 57 connected.
+Client 57 disconnected.
+Client 58 connected.
+Client 58 disconnected.
+Player try to pause
+2
+53
+Player try to pause
+2
+53
+Player try to pause
+2
+53
+Player try to pause
+2
+53
+Player try to pause
+2
+53
+Player try to pause
+2
+53
+Client 51 disconnected.
+Client 59 connected.
+Client 60 connected.
+Client 53 disconnected.
+Client 59 disconnected.
+Client 56 disconnected.
+Client 54 disconnected.
+Client 60 disconnected.
+Client 61 connected.
+Client 61 disconnected.
+Client 62 connected.
+Client 63 connected.
+Client 64 connected.
+Client 65 connected.
+Client 65 disconnected.
+Client 66 connected.
+Client 67 connected.
+Client 66 disconnected.
+Client 63 disconnected.
+Client 64 disconnected.
+Client 67 disconnected.
+Client 68 connected.
+Client 62 disconnected.
+Client 68 disconnected.
+Client 69 connected.
+Client 69 disconnected.
+Client 70 connected.
+Client 71 connected.
+Client 71 disconnected.
+Client 72 connected.
+Client 73 connected.
+Client 74 connected.
+Client 75 connected.
+Client 75 disconnected.
+Client 76 connected.
+Client 77 connected.
+Client 70 disconnected.
+Client 77 disconnected.
+Client 74 disconnected.
+Client 76 disconnected.
+Client 78 connected.
+Client 79 connected.
+Client 79 disconnected.
+Client 80 connected.
+Client 81 connected.
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+1
+72
+As the player is master, pause OK
+Player try to pause
+1
+72
+As the player is master, pause OK
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Player try to pause
+8
+72
+Client 80 disconnected.
+Client 81 disconnected.
+Client 78 disconnected.
+Client 82 connected.
+Client 82 disconnected.
+Client 83 connected.
+Client 84 connected.
+Client 85 connected.
+Client 73 disconnected.
+Client 84 disconnected.
+Client 85 disconnected.
+Client 72 disconnected.
+Client 83 disconnected.
+Client 86 connected.
+Client 86 disconnected.
+Client 87 connected.
+Client 88 connected.
+Client 88 disconnected.
+Client 89 connected.
+Client 90 connected.
+Client 91 connected.
+Client 92 connected.
+Client 91 disconnected.
+Client 93 connected.
+Client 93 disconnected.
+Client 94 connected.
+Client 89 disconnected.
+Client 95 connected.
+Client 95 disconnected.
+Client 96 connected.
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Player try to pause
+6
+92
+Client 96 disconnected.
+Client 90 disconnected.
+Client 87 disconnected.
+Client 92 disconnected.
+Client 94 disconnected.
+Client 97 connected.
+Client 98 connected.
+Client 98 disconnected.
+Client 99 connected.
+Client 99 disconnected.
+Client 100 connected.
+Client 97 disconnected.
+Client 101 connected.
+Client 101 disconnected.
+Client 102 connected.
+Client 102 disconnected.
+Client 103 connected.
+Client 104 connected.
+Client 104 disconnected.
+Client 105 connected.
+Client 106 connected.
+Client 107 connected.
+Client 108 connected.
+Client 107 disconnected.
+Client 103 disconnected.
+Client 105 disconnected.
+Client 100 disconnected.
+Client 108 disconnected.
+Client 106 disconnected.
+Client 109 connected.
+Client 109 disconnected.
+Client 110 connected.
+Client 110 disconnected.
+Client 111 connected.
+Client 112 connected.
+Client 113 connected.
+Client 114 connected.
+Client 114 disconnected.
+Client 115 connected.
+Client 116 connected.
+Client 117 connected.
+Client 113 disconnected.
+Client 116 disconnected.
+Client 115 disconnected.
+Client 111 disconnected.
+Client 117 disconnected.
+Client 112 disconnected.
+Client 118 connected.
+Client 118 disconnected.
+Client 119 connected.
+Client 120 connected.
+Client 120 disconnected.
+Client 121 connected.
+Client 122 connected.
+Client 122 disconnected.
+Client 123 connected.
+Client 124 connected.
+Player try to pause
+3
+119
+Player try to pause
+3
+119
+Player try to pause
+3
+119
+Player try to pause
+3
+119
+Player try to pause
+3
+119
+Player try to pause
+3
+119
+Player try to pause
+3
+119
+Player try to pause
+3
+119
+Player try to pause
+3
+119
+Player try to pause
+3
+119
+Player try to pause
+3
+119
+Player try to pause
+1
+119
+As the player is master, pause OK
+Player try to pause
+1
+119
+As the player is master, pause OK
+Player try to pause
+1
+119
+As the player is master, pause OK
+Client 121 disconnected.
+Client 119 disconnected.
+Client 123 disconnected.
+Client 124 disconnected.
