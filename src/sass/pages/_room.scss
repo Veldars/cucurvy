@@ -657,6 +657,9 @@
 		&.bonus-enemy-world-rotor {
 		    @include bonus-sprite(0, 6);
 		}
+                &.bonus-self-curvy {
+                    @include bonus-sprite(1, 6);
+                }
 
                 i {
                     width: 16px;

@@ -37,6 +37,7 @@ BonusManager.prototype.spritePosition = [
     'BonusEnemySlow',
     'BonusGameBorderless',
     'BonusSelfMaster',
+    'BonusSelfCurvy',
     'BonusEnemyBig',
     'BonusAllColor',
     'BonusEnemyInverse',

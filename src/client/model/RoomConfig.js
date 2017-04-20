@@ -24,6 +24,7 @@ RoomConfig.prototype.bonusClasses = {
     BonusSelfSlow: 'bonus-self-slow',
     BonusSelfFast: 'bonus-self-fast',
     BonusSelfMaster: 'bonus-self-master',
+    BonusSelfCurvy: 'bonus-self-curvy',
     BonusSelfGhost: 'bonus-self-ghost',
     BonusSelfEraser: 'bonus-self-eraser',
     BonusEnemySlow: 'bonus-enemy-slow',
