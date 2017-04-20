@@ -22,8 +22,6 @@ function BaseRoomConfig(room)
         BonusSelfSmall: true,
         BonusSelfSlow: true,
         BonusSelfFast: true,
-        BonusSelfMaster: true,
-        BonusSelfCurvy: true,
         BonusSelfGhost: true,
         BonusSelfEraser: true,
         BonusEnemySlow: true,
@@ -38,7 +36,8 @@ function BaseRoomConfig(room)
         BonusAllColor: true,
         BonusGameClear: true,
         BonusGameMaster: true,
-        BonusEnemyWorldRotor: true
+        BonusEnemyWorldRotor: true,
+        BonusSelfCurvy: true
     };
 }
 

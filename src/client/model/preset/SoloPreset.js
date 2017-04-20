@@ -26,7 +26,7 @@ SoloPreset.prototype.bonuses = [
     'BonusSelfSlow',
     'BonusSelfFast',
     'BonusSelfMaster',
-    'BonusSelfCurvy',
     'BonusGameBorderless',
-    'BonusGameClear'
+    'BonusGameClear',
+    'BonusSelfCurvy'
 ];

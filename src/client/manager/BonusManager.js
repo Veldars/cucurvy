@@ -37,7 +37,6 @@ BonusManager.prototype.spritePosition = [
     'BonusEnemySlow',
     'BonusGameBorderless',
     'BonusSelfMaster',
-    'BonusSelfCurvy',
     'BonusEnemyBig',
     'BonusAllColor',
     'BonusEnemyInverse',
@@ -50,7 +49,8 @@ BonusManager.prototype.spritePosition = [
     'BonusSelfGhost',
     'BonusSelfEraser',
     'BonusGameMaster',
-    'BonusEnemyWorldRotor'
+    'BonusEnemyWorldRotor',
+    'BonusSelfCurvy'
 ];
 
 /**

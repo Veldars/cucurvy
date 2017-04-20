@@ -37,6 +37,7 @@ DefaultPreset.prototype.bonuses = [
     'BonusGameBorderless',
 	'BonusSelfGhost',
 	'BonusSelfEraser',
-     'BonusGameMaster'
+     'BonusGameMaster',
+     'BonusSelfCurvy'
 ];
 
