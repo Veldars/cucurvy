@@ -19,6 +19,9 @@ BonusSelfCurvy.prototype.constructor = BonusSelfCurvy;
  */
 BonusSelfCurvy.prototype.duration = 5000;
 
+
+BonusSelfCurvy.prototype.probability = 5;
+
 /**
  * Get effects
  *
@@ -30,8 +33,6 @@ BonusSelfCurvy.prototype.getEffects = function(avatar)
 {
     return [
 	    ['invincible', true],
-        ['velocity', 0.75 * BaseAvatar.prototype.velocity],
-        ['directionInLoop', false],
-        ['angularVelocityBase', Math.PI/2]
+        ['velocity', 0.75 * BaseAvatar.prototype.velocity]
     ];
 };
