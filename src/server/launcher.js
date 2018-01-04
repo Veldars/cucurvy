@@ -5,7 +5,7 @@ try {
     config = require('../config.json');
 } catch (error) {
     config = {
-        port: 80,
+        port: 8080,
         inspector: { enabled: false }
     };
 }
